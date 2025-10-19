@@ -25,6 +25,14 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Ensure Gradle wrapper executable
+        run: |
+          ls -l gradlew || true
+          chmod +x gradlew
+          # 处理可能的 CRLF 换行导致的 /usr/bin/env: bash\r 错误
+          sed -i 's/\r$//' gradlew
+          head -n 3 gradlew
+
       - name: Set up JDK (Temurin 17)
         uses: actions/setup-java@v4
         with:
